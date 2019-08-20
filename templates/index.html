@@ -1,0 +1,89 @@
+<html>
+	<head>
+		<title>Quirko</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<style>
+			img {
+			    position: absolute;
+			    margin: auto;
+			    left: 0;
+			    right: 0;
+			}
+
+
+
+
+			.outer:before {
+			  content: '';
+			  display: inline-block;
+			  height: 100%;
+			  vertical-align: middle;
+			}
+
+			.inner {
+			  display: inline-block;
+			  vertical-align: middle;
+			}
+
+
+		</style>
+	</head>
+	<body id="main" onclick="changePage()">
+
+				<div  onclick="changePage()" style="height: 40%;">
+
+					<div class="outer">
+					  <span class="inner">
+									<img id="image" width=500 style=""/>
+						</span>
+					</div>
+
+				</div>
+
+
+
+		<script>
+
+		window.addEventListener("load", function(){
+			$.ajax({
+			method: "GET",
+			url: "/api/v1/core/pictures/random/",
+
+			}).done(function( response ) {
+				console.log(response.data)
+				document.getElementById("image").src=response.image;
+			});
+			
+			$.ajax({
+				method: "GET",
+				url: "/api/v1/core/colors/random/",
+			}).done(function(response) {
+					document.getElementById("main").style.backgroundColor = response.color;
+			});
+
+
+		});
+
+
+				  function changePage() {
+				  	$.ajax({
+					  method: "GET",
+					  url: "/api/v1/core/pictures/random/",
+
+					}).done(function( response ) {
+					    console.log(response.data)
+					    document.getElementById("image").src=response.image;
+					});
+
+					$.ajax({
+					  method: "GET",
+					  url: "/api/v1/core/colors/random/",
+					}).done(function(response) {
+					    document.getElementById("main").style.backgroundColor = response.color;
+					});
+				  }
+		</script>
+	</body>
+</html>
